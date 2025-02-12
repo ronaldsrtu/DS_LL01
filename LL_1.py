@@ -5,15 +5,19 @@ class Node:
         
 
 class LinkedList:
-    def __init__(self, value):
-        new_node = Node(value)
-        self.head = new_node
-        self.tail = new_node
+    def __init__(self, value=None):
+        if value is not None:
+            new_node = Node(value)
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.head = None
+            self.tail = None
 
         
     def append(self, value):
         new_node = Node(value)
-        if self.head == None:
+        if self.head is None:
             self.head = new_node
             self.tail = new_node
         else:
@@ -21,21 +25,29 @@ class LinkedList:
             self.tail = new_node
         return True
         
+    def find_middle_node(self):
+        slow = self.head
+        fast = self.head
+        while fast is not None and fast.next is not None:
+            slow = slow.next
+            fast = fast.next.next
 
-    # WRITE FIND_MIDDLE_NODE METHOD HERE #
-    #                                    #
-    #                                    #
-    #                                    #
-    #                                    #
-    ######################################
+        return slow
+
+    def input(self):
+        print("type 'stop' to finish input")
+        while True:
+            user_input = input("Enter a number:  ")
+            if user_input.lower() == 'stop':
+                break
+            try:
+                value = int(user_input)
+                self.append(value)
+            except ValueError:
+                print("Invalid input.")
 
 
+my_linked_list = LinkedList()
+my_linked_list.input()
 
-my_linked_list = LinkedList(1)
-my_linked_list.append(2)
-my_linked_list.append(3)
-my_linked_list.append(4)
-my_linked_list.append(5)
-
-print( my_linked_list.find_middle_node().value )
-
+print(my_linked_list.find_middle_node().value)
